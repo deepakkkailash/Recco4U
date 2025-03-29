@@ -2,7 +2,7 @@ import SearchForAnything from './SearchForAnything'
 import {useState,useEffect} from 'react'
 const InputComponent = (props)=>{
 
-    console.log(props.whattosearch, props.wheretosearch)
+
     if(props.formcomponent.answer){
 
         return(
@@ -13,8 +13,8 @@ const InputComponent = (props)=>{
              return(
 
         <div className='flex flex-row gap-[10px] w-[60%]'>
-            <SearchForAnything placeholder='The What' name='What' onChange={props.changeWhat}  valueset={props.whattosearch}/>
-            <SearchForAnything placeholder='The Where' name='Where' onChange={props.changeWhere} valueset={props.wheretosearch}/>
+            <SearchForAnything placeholder='The What' name='What'  ref={props.whatref}valueset={props.whattosearch}/>
+            <SearchForAnything placeholder='The Where' name='Where'  ref={props.whereref} valueset={props.wheretosearch}/>
 
         </div>
     )

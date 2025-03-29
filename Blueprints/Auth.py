@@ -5,7 +5,7 @@ from flask_login import login_required
 from Models import User
 auth = Blueprint('auth',__name__)
 
-@auth.route('/login',method=['POST'])
+@auth.route('/login',methods=['POST'])
 @login_required
 def login():
     data = request.form
@@ -18,7 +18,7 @@ def login():
 
 
 
-@auth.route('/signup',method=['POST'])
+@auth.route('/signup',methods=['POST'])
 @login_required
 def signup():
     data = request.form

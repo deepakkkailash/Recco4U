@@ -23,10 +23,12 @@ class User(UserMixin):
     def login_user_from_db(username_from_user, password_from_user):
         conn = Connect()
         cursor = conn.getcursor()
-        query = 'SELECT IFNULL(password,"None") from users where username=? '
+        query = 'SELECT IFNULL(password,"None"),UpVoteCount,QuestionsAsked,QuestionsAnswered from users where username=? '
         cursor.execute(query,(username_from_user,))
         res = dict(cursor.fetchone())
         del conn
+        if(res['password']=='None'):
+            return 400
         if(bcrypt.checkpw(password_from_user.encode('utf-8'),res['password'])):
             login_user(User(username_from_user))
             return 200
@@ -38,7 +40,7 @@ class User(UserMixin):
     def signup_user_from_db(username,password):
         conn = Connect()
         cursor = conn.getcursor()
-        query = 'INSERT INTO USERS(username,password) values(?,?)'
+        query = 'INSERT INTO USERS(username,password,QuestionsAsked, QuestionsAnswered, UpVoteCount) values(?,?,?,?,?)'
         try:
             cursor.execute(query,(username,password))
             login_user(User(username))
@@ -62,3 +64,27 @@ class User(UserMixin):
 
 
 
+class Question:
+
+    @staticmethod
+    def retrieve_question_answers_from_DB(whatquestion,wherelocation):
+        conn = Connect()
+        cursor = conn.getcursor()
+        cursor.execute('''
+            SELECT QUESTIONS.ASKEDBY, ANSWERS.ANSWERTEXT,ANSWERS.UPVOTES  FROM QUESTIONS LEFT JOIN ANSWERS ON QUESTIONS.WHATQUESTION = ANSWERS.WHATQUESTION AND QUESTIONS.WHERELOCATION=ANSWERS.WHERELOCATION WHERE QUESTIONS.WHATQUESTION=? AND QUESTIONS.WHERELOCATION=?
+        ''',(whatquestion,wherelocation))
+
+        res = cursor.fetchall()
+        if(len(res)==0):
+            return {'StatusCode':404,'AnswersFound':0}
+        else:
+            if(len(res)==1):
+                return {'StatusCode':200,'AnswersFound':0,'AskedBy':dict(res[0])['AskedBy']}
+            else:
+
+                    answers = []
+
+                    for i in res:
+                        if(i['ANSWERTEXT']!=None):
+                            answers.append((i['ANSWERTEXT'],i['UPVOTES']))
+                    return {'StatusCode':200,'AnswersFound':len(res),'ANSWERS':answers,'AskedBy':dict(res[0])['AskedBy']}
