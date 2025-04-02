@@ -9,7 +9,7 @@ const HeaderComp = (props)=>{
                     Recco4me
                 </h1>
                 <InputComponent formcomponent={{answer:false}} placeholder='Search For Anything' whattosearch={props.whattosearch} wheretosearch={props.wheretosearch} whatref={props.whatref} whereref={props.whereref} />
-               <ReccoButton what='Go' action={props.changeWhatNWhere} color='green'/>
+               <ReccoButton what='Search' action={props.changeWhatNWhere} color='green'/>
 
                 <ReccoButton what='Log in' action={()=>{props.Navigator({type:'Auth',mode:'Login'})}} color='red'/>
             </div>

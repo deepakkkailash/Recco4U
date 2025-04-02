@@ -8,8 +8,39 @@ const Form = ({mode,Navigator})=>{
     const [password,setpassword] = useState(null)
     const [isusernamevalid,setisusernamevalid]= useState(false)
     const [ispasswordvalid,setispasswordvalid]= useState(false)
+
+    const tryauth = async (username,password)=>{
+            let formdata = new FormData()
+            if(ispasswordvalid && isusernamevalid){
+                     formdata.append('username',username)
+                     formdata.append('password',password)
+            }
+           else{
+                window.alert('Broooo something wrong!')
+           }
+
+
+            let res = await fetch(`http://127.0.0.1:5000/${mode}`,{
+                method:'POST',
+                credentials: 'include',
+                body:formdata
+            })
+
+            let data = await res.json();
+
+            if(data.status=200){
+                    Navigator('HomePage')
+            }
+
+
+
+    }
     const SubmitForm = ()=>{
         console.log(username,password)
+        if(isusernamevalid && ispasswordvalid){
+              tryauth(username,password)
+        }
+
 
     }
     const updateUsername = (event)=>{
@@ -51,6 +82,8 @@ const Form = ({mode,Navigator})=>{
         }
 
     },[password])
+
+
 return(
 
     <form  className='bg-stone-900 w-[30vw] h-[50vh] rounded-lg flex flex-col items-center  justify-around'>
@@ -60,7 +93,7 @@ return(
                     <FormInput fc={{answer:true, type:'password',name:'password',onChange:updatePassword}}placeholder='Password' valid={ispasswordvalid}/>
                 </div>
                 <ReccoButton type={'button'} what={mode} action={SubmitForm}/>
-               {mode=='Login'?<span className='text-sm font-mono font-bold text-white'>New to the Fam? <button type='button' onClick={()=>{Navigator({type:'Auth',mode:'Sign Up'})}} className=' text-red-500 hover:text-sky-500'>@</button> Here</span>
+               {mode=='Login'?<span className='text-sm font-mono font-bold text-white'>New to the Fam? <button type='button' onClick={()=>{Navigator({type:'Auth',mode:'SignUp'})}} className=' text-red-500 hover:text-sky-500'>@</button> Here</span>
                :<span className='text-sm font-mono font-bold text-white'>Already a homie? <button type='button' onClick={()=>{Navigator({type:'Auth',mode:'Login'})}} className=' text-red-500 hover:text-sky-500'>@</button> Here </span>
                }
         </form>

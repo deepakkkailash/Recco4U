@@ -17,9 +17,9 @@ const AppStuff = ({what,Navigator,availableWhatWheredata})=>{
             )
             }
             else if(availableWhatWheredata.status=404){
-                       console.log('hel')
+
                 return(
-                    <div className='flex flex-col items-center'>
+                    <div className='flex flex-col gap-[10px] items-center'>
                         <h3 className='font-mono font-bold text-white'>{availableWhatWheredata.title}</h3>
                        <ReccoButton what='Log in to ask' action={()=>{Navigator({type:'Auth',mode:'Login'})}} color='red'/>
 
@@ -30,8 +30,8 @@ const AppStuff = ({what,Navigator,availableWhatWheredata})=>{
         }
         else{
             return(
-            <div className=''>
-
+            <div className='animate-pulse text-red-500 font-mono font-bold'>
+                Try Searching for Something up top......
             </div>
             )
         }
