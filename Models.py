@@ -67,7 +67,21 @@ class User(UserMixin):
         query = 'SELECT IFNULL(username,"None") as username from Users where username=?'
         res = dict(cursor.execute(query,(username,)).fetchone())
         print(res['username'])
+        del conn
         return User(res['username'])
+
+    def insertquestion(self,whatquestion,wherelocation):
+        try:
+            conn= Connect()
+            cursor = conn.getcursor()
+            cursor.execute('INSERT INTO QUESTIONS(WHATQUESTION,WHERELOCATION,ASKEDBY,NUMBEROFIALSOWANTS) VALUES(?,?,?,?)',(whatquestion,wherelocation,self.username,0))
+            conn.commit()
+            return 200
+        except sqlite3.OperationalError as e:
+            print(e)
+            return 500
+            del conn
+
 
 
 
@@ -82,6 +96,7 @@ class Question:
         ''',(whatquestion,wherelocation))
 
         res = cursor.fetchall()
+        del conn
         if(len(res)==0):
             return {'StatusCode':404,'AnswersFound':0}
         else:
@@ -96,3 +111,11 @@ class Question:
                             answers.append((i['ANSWERTEXT'],i['UPVOTES']))
                     return {'StatusCode':200,'AnswersFound':len(res),'ANSWERS':answers,'AskedBy':dict(res[0])['AskedBy']}
 
+
+
+conn = Connect()
+cursor = conn.getcursor()
+
+cursor.execute('PRAGMA TABLE_INFO(QUESTIONS)')
+
+print([dict(i) for i in cursor.fetchall()])

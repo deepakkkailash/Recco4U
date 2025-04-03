@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint,request,session
+from flask import Blueprint,request,session,jsonify
 from flask_login import login_required,current_user
 from Models import User
 auth = Blueprint('auth',__name__)
@@ -12,9 +12,9 @@ def login():
     status = User.login_user_from_db(data['username'],data['password'])
 
     if (status == 200):
-        return json.dumps({'status': 200})
+        return jsonify({'status': 200})
     else:
-        return json.dumps({'status': 500})
+        return jsonify({'status': 500})
 
 
 
@@ -26,9 +26,9 @@ def signup():
 
     if(status==200):
 
-        return json.dumps({'status':200})
+        return jsonify({'status':200})
     else:
-        return json.dumps({'status':500})
+        return jsonify({'status':500})
 
 
 @auth.route('/everyrequestcheck',methods=['GET'])
@@ -40,4 +40,4 @@ def everyrequestcheck():
         return json.dumps({'status':200})
     else:
         print(session.items())
-        return  json.dumps({'status':500})
+        return  jsonify({'status':500})
