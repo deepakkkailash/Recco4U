@@ -1,12 +1,16 @@
 
 import Form from './Form'
 import ReccoButton from './ReccoButton'
+import LoggedInUserConsole from './LoggedInUserConsole'
 const AppStuff = ({what,Navigator,availableWhatWheredata})=>{
 
 
     if(what.type=='Non-Auth'){
-
-        if(availableWhatWheredata){
+        if(what.val=='HomePage'){
+            return(<LoggedInUserConsole Navigator={Navigator} />)
+        }
+        else{
+            if(availableWhatWheredata){
 
             if(availableWhatWheredata.status==200){
                     return(
@@ -35,6 +39,10 @@ const AppStuff = ({what,Navigator,availableWhatWheredata})=>{
             </div>
             )
         }
+
+
+        }
+
 
     }
     else if(what.type=='Auth'){

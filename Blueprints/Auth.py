@@ -7,14 +7,13 @@ auth = Blueprint('auth',__name__)
 
 @auth.route('/Login',methods=['POST'])
 def login():
-
+    print('helloooooo')
     data = request.form
     status = User.login_user_from_db(data['username'],data['password'])
 
-    if (status == 200):
-        return jsonify({'status': 200})
-    else:
-        return jsonify({'status': 500})
+    print(status)
+    return jsonify({'LoginStatus': status})
+
 
 
 
@@ -24,20 +23,16 @@ def signup():
     data = request.form
     status = User.signup_user_from_db(data['username'],data['password'])
 
-    if(status==200):
-
-        return jsonify({'status':200})
-    else:
-        return jsonify({'status':500})
+    return jsonify({'LoginStatus': status})
 
 
 @auth.route('/everyrequestcheck',methods=['GET'])
 def everyrequestcheck():
-
     if(current_user.is_authenticated):
-        print(session.items())
-        print('heylll')
-        return json.dumps({'status':200})
+
+        return jsonify({'LoginStatus':200})
     else:
+
         print(session.items())
-        return  jsonify({'status':500})
+
+        return  jsonify ({'LoginStatus':400})

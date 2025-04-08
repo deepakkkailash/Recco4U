@@ -1,8 +1,7 @@
-import secrets
 
 from flask import Flask
 from flask_cors import CORS
-from secrets import token_hex
+import secrets
 from Blueprints.Auth import auth
 from Blueprints.Methods import methods
 from flask_login import LoginManager
@@ -32,4 +31,5 @@ def loaduser(id):
 
 
 if(__name__=='__main__'):
+    print('app running')
     app.run(debug=True)

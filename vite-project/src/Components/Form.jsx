@@ -22,14 +22,19 @@ const Form = ({mode,Navigator})=>{
 
             let res = await fetch(`http://127.0.0.1:5000/${mode}`,{
                 method:'POST',
-                credentials: 'include',
+                     credentials: 'include',
                 body:formdata
             })
 
             let data = await res.json();
-
-            if(data.status=200){
-                    Navigator('HomePage')
+            console.log(data.LoginStatus)
+            if(data.LoginStatus==200){
+                    console.log(data.LoginStatus)
+                    Navigator({type:'Non-Auth',val:'HomePage'})
+            }
+            else{
+                console.log('seri vidu')
+                Navigator({type:'Non-Auth'})
             }
 
 
@@ -38,6 +43,7 @@ const Form = ({mode,Navigator})=>{
     const SubmitForm = ()=>{
         console.log(username,password)
         if(isusernamevalid && ispasswordvalid){
+
               tryauth(username,password)
         }
 

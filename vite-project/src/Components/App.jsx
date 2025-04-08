@@ -1,6 +1,6 @@
 import {useState,useRef} from 'react';
 import AppStuff from './AppStuff';
-import LoggedInUserConsole from './LoggedInUserConsole'
+
 import HeaderComp from './HeaderComp.jsx';
 
 const App = ()=>{
@@ -61,7 +61,6 @@ const App = ()=>{
         fetchstuff(obj)
     }
 
-    if(what!='HomePage'){
          return(
     <div className=' bg-black w-[100vw] h-[100vh] flex flex-col items-center gap-[300px] '>
         <HeaderComp Navigator={Navigator} whattosearch={whattosearch} wheretosearch={wheretosearch} changeWhatNWhere={changeWhatNWhere} whatref={whatref} whereref={whereref}/>
@@ -69,14 +68,8 @@ const App = ()=>{
 
     </div>
     )
-    }
-    else{
-        return(
-            <LoggedInUserConsole Navigator={Navigator}/>
 
-        )
 
-    }
 
 
 }

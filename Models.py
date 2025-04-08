@@ -2,6 +2,9 @@ import sqlite3
 import bcrypt
 from flask_login import login_user,UserMixin
 from flask import session
+
+
+
 class Connect:
     def __init__(self):
         self.conn = sqlite3.connect('Recco4U.db')
@@ -29,10 +32,14 @@ class User(UserMixin):
         cursor.execute(query,(username_from_user,))
         res = dict(cursor.fetchone())
         del conn
+        print(res.get('password'))
         if(res.get('password',None)=='None'):
+
             return 404
         if(bcrypt.checkpw(hashed_password=res.get('password'),password=password_from_user.encode('utf-8'))):
+            print('seri da')
             login_user(User(username_from_user))
+
             return 200
         else:
 
@@ -54,7 +61,7 @@ class User(UserMixin):
             retvalue = 200
         except (sqlite3.OperationalError,sqlite3.IntegrityError) as e:
             print(e)
-            retvalue = 500
+            retvalue = 400
         finally:
             return retvalue
             del conn
@@ -64,11 +71,12 @@ class User(UserMixin):
     def getuserbyid(username):
         conn = Connect()
         cursor = conn.getcursor()
-        query = 'SELECT IFNULL(username,"None") as username from Users where username=?'
+        query = 'SELECT * from Users where username=?'
         res = dict(cursor.execute(query,(username,)).fetchone())
-        print(res['username'])
+        print(res)
+        print(res.get('USERNAME',res.get('username')))
         del conn
-        return User(res['username'])
+        return User(username=res.get('USERNAME',res.get('username')))
 
     def insertquestion(self,whatquestion,wherelocation):
         try:
@@ -86,7 +94,6 @@ class User(UserMixin):
 
 
 class Question:
-
     @staticmethod
     def retrieve_question_answers_from_DB(whatquestion,wherelocation):
         conn = Connect()
@@ -112,10 +119,3 @@ class Question:
                     return {'StatusCode':200,'AnswersFound':len(res),'ANSWERS':answers,'AskedBy':dict(res[0])['AskedBy']}
 
 
-
-conn = Connect()
-cursor = conn.getcursor()
-
-cursor.execute('PRAGMA TABLE_INFO(QUESTIONS)')
-
-print([dict(i) for i in cursor.fetchall()])
