@@ -6,9 +6,12 @@ const LoggedInUserConsole = ({Navigator})=>{
             const [Loading,SetLoading] = useState(false)
             const [whattodisplay,setwhattodisplay]= useState('Ask a question')
             const [content, setcontent] = useState(null)
-            const changeContent = ()=>{
-                    setcontent(whattodisplay)
+            const changetoask = ()=>{
+                    setcontent('Ask a Question')
     }
+            const changetoanswer = ()=>{
+                    setcontent('Answer a Question')
+            }
 
 
 
@@ -29,7 +32,7 @@ const LoggedInUserConsole = ({Navigator})=>{
                         null;
 
                  }else if(data.LoginStatus==400){
-                        console.log('dei dei dei    ')
+
                         Navigator({type:"Non-Auth"})
 
                  }
@@ -45,13 +48,16 @@ const LoggedInUserConsole = ({Navigator})=>{
                 if(!content){
                 console.log('helo')
                 return( <div className='bg-black flex flex-col items-center justify-end h-[100vh] w-[100vw]'>
-                    <TheInAppNavigtor whattodisplay={whattodisplay} changeContent={changeContent} />
+                    <div className='flex flex-row gap-[90px]'>
+                        <TheInAppNavigtor whattodisplay={'Ask a Question'} changeContent={changetoask} />
+                         <TheInAppNavigtor whattodisplay={'Answer a Question'} changeContent={changetoanswer} />
+                    </div>
             </div>)
         }
-        else if(content=='Answer a question'){
+        else if(content=='Answer a Question'){
             return(<AnswerQuestion />)
         }
-        else if(content=='Ask a question'){
+        else if(content=='Ask a Question'){
                 return(<AskQuestion />)
         }
 
@@ -59,9 +65,9 @@ const LoggedInUserConsole = ({Navigator})=>{
         else{
 
             return(
-                <div className='bg-black w-[100vw] h-[100vh] flex flex-col items-center justify-center text-white'>
+                <div className='bg-black w-[80vw] h-[80vh] flex flex-col items-center justify-center text-white'>
                     <div className='bg-transparent animate-spin rounded-[50%] border border-stone-500 border-[16px] w-[120px] h-[120px] border-t-sky-500'>
-                </div>
+                    </div>
                 </div>
 
 

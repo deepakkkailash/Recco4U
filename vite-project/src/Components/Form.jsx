@@ -30,6 +30,7 @@ const Form = ({mode,Navigator})=>{
             console.log(data.LoginStatus)
             if(data.LoginStatus==200){
                     console.log(data.LoginStatus)
+
                     Navigator({type:'Non-Auth',val:'HomePage'})
             }
             else{
