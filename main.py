@@ -23,7 +23,6 @@ app.register_blueprint(auth)
 app.register_blueprint(methods)
 @lm.user_loader
 def loaduser(id):
-
     return User.getuserbyid(id)
 
 
@@ -31,5 +30,5 @@ def loaduser(id):
 
 
 if(__name__=='__main__'):
-    print('app running')
-    app.run(debug=True)
+
+    app.run(debug=True,port=5000)

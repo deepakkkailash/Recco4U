@@ -9,7 +9,19 @@ const AppStuff = ({what,Navigator,availableWhatWheredata})=>{
     const [i,seti] = useState(0)
     const [welcometextfinish,setwelcometextfinish] = useState(false)
     const thewelcomestuff = 'Search for Something up top!'
+    useEffect(()=>{
+                if(i==thewelcomestuff.length){
+                    setTimeout(()=>{  setwelcometextfinish(true)},1000)
 
+                    return
+                }
+                else{
+                    setTimeout(()=>{  setwelcometext(welcometext+thewelcomestuff[i])
+                    seti(i+1)},100)
+
+                }
+
+            },[welcometext,i])
 
     if(what.type=='Non-Auth'){
 
@@ -36,19 +48,7 @@ const AppStuff = ({what,Navigator,availableWhatWheredata})=>{
 
         }
         else{
-            useEffect(()=>{
-                if(i==thewelcomestuff.length){
-                    setTimeout(()=>{  setwelcometextfinish(true)},1000)
 
-                    return
-                }
-                else{
-                    setTimeout(()=>{  setwelcometext(welcometext+thewelcomestuff[i])
-                    seti(i+1)},100)
-
-                }
-
-            },[welcometext,i])
 
             return(
             <div className='animate-pulse text-red-500 font-mono font-bold flex flex-row gap-[10px] text-3xl items-center'>
