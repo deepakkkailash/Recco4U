@@ -1,13 +1,14 @@
 import questions from '../meta/questions.js'
+import wheres from '../meta/wheres.js'
 import Option from './Options'
-const WhatSelection = ({type,changeQuestion})=>{
+const WhatSelection = ({type,changeQuestion,changeWhere})=>{
     if(type=='question'){
          return(
-            <select className='p-[10px] rounded-lg bg-red-500' onChange={changeQuestion}>
+            <select className='p-[10px] rounded-lg bg-white' onChange={changeQuestion}>
                 <option default ></option>
                 {questions.map((item)=>{
                     return(
-                        <Option content={item}/>
+                        <Option content={item} type={'what'}/>
                     )
                 })}
             </select>
@@ -16,7 +17,13 @@ const WhatSelection = ({type,changeQuestion})=>{
     }
     else if(type=='Where'){
             return(
-                <select></select>
+                <select className='p-[10px] rounded-lg bg-white' onChange={changeWhere}>
+                    <option default></option>
+                    {wheres.map((item)=>{
+                        return <Option content={item} type={'where'} />
+                    })}
+
+                </select>
             )
     }
 

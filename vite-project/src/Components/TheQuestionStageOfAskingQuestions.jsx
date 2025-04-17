@@ -6,7 +6,7 @@ const TheQuestionStageOfAskingQuestions = ({whatisuserquestion,changestage,chang
         const [donetyping,setdonetyping] = useState(false)
         const [i,seti] = useState(0)
         const thetext = 'Alright...Now choose what do you want from the picklist below'
-        console.log(whatisuserquestion)
+
 
         useEffect(()=>{
             if(i==thetext.length){
@@ -25,7 +25,7 @@ const TheQuestionStageOfAskingQuestions = ({whatisuserquestion,changestage,chang
                     {text}
                 </p>
                 {donetyping?<WhatSelection  type='question' changeQuestion={changeQuestion} />:null}
-                {whatisuserquestion!=null && whatisuserquestion!=' '? <button onClick={changestage}  className='rounded-lg p-[20px] bg-sky-500 font-mono font-bold text-white hover:opacity-[0.5]'>Go</button>:null}
+                {whatisuserquestion!=null && whatisuserquestion!=' '? <button onClick={changestage}  className='rounded-lg p-[20px] bg-black w-[70px] h-[50px] font-mono font-bold text-white hover:opacity-[0.5]'>Go</button>:null}
             </div>
         )
 }

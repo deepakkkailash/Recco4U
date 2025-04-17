@@ -27,14 +27,14 @@ const Form = ({mode,Navigator})=>{
             })
 
             let data = await res.json();
-            console.log(data.LoginStatus)
+
             if(data.LoginStatus==200){
-                    console.log(data.LoginStatus)
+
 
                     Navigator({type:'Non-Auth',val:'HomePage'})
             }
             else{
-                console.log('seri vidu')
+
                 Navigator({type:'Non-Auth'})
             }
 
