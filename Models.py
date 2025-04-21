@@ -119,3 +119,15 @@ class Question:
                     return {'StatusCode':200,'AnswersFound':len(res),'ANSWERS':answers,'AskedBy':dict(res[0])['AskedBy']}
 
 
+    @staticmethod
+    def getanswersforaquestion(what,where):
+        try:
+            conn = Connect()
+            cursor = conn.getcursor()
+            cursor.execute('SELECT * from Answers where WHATQUESTION=? and WHERELOCATION=?',(what,where))
+            results = [dict(i) for i in cursor.fetchall()]
+            return results
+        except sqlite3.OperationalError as e:
+            print(e)
+            return False
+

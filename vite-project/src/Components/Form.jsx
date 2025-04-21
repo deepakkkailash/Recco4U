@@ -22,7 +22,7 @@ const Form = ({mode,Navigator})=>{
 
             let res = await fetch(`http://127.0.0.1:5000/${mode}`,{
                 method:'POST',
-                     credentials: 'include',
+                credentials: 'include',
                 body:formdata
             })
 

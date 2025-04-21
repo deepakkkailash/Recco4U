@@ -58,7 +58,7 @@ const LoggedInUserConsole = ({Navigator})=>{
             return(<AnswerQuestion />)
         }
         else if(content=='Ask a Question'){
-                return(<AskQuestion />)
+                return(<AskQuestion Navigator={Navigator} />)
         }
 
         }

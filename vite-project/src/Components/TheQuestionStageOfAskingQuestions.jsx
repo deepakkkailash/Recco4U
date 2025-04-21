@@ -25,7 +25,7 @@ const TheQuestionStageOfAskingQuestions = ({whatisuserquestion,changestage,chang
                     {text}
                 </p>
                 {donetyping?<WhatSelection  type='question' changeQuestion={changeQuestion} />:null}
-                {whatisuserquestion!=null && whatisuserquestion!=' '? <button onClick={changestage}  className='rounded-lg p-[20px] bg-black w-[70px] h-[50px] font-mono font-bold text-white hover:opacity-[0.5]'>Go</button>:null}
+                {whatisuserquestion!=null && whatisuserquestion!=' '? <button onClick={changestage}  className={`rounded-lg p-[20px] bg-white  font-mono font-bold text-black mt-2 hover:opacity-[0.5]`}>Go</button>:null}
             </div>
         )
 }

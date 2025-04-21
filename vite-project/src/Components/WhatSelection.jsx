@@ -4,7 +4,7 @@ import Option from './Options'
 const WhatSelection = ({type,changeQuestion,changeWhere})=>{
     if(type=='question'){
          return(
-            <select className='p-[10px] rounded-lg bg-white' onChange={changeQuestion}>
+            <select className='p-[10px] rounded-lg bg-black ' onChange={changeQuestion}>
                 <option default ></option>
                 {questions.map((item)=>{
                     return(

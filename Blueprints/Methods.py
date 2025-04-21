@@ -23,12 +23,22 @@ def findquestion():
         return jsonify({'status':404})
 
 @methods.route('/addquestion',methods=['POST'])
-@login_required
 def addquestion():
-    form = request.form
-    what,where = form.values()
-    if(current_user.insertquestion(what,where)==200):
-        return jsonify({'status':200})
+    if(current_user.is_authenticated):
+        form = request.form
+        what,where = form.values()
+        print(what,where)
+        if(current_user.insertquestion(what,where)==200):
+            return jsonify({'status':200})
+        else:
+            return jsonify({'status':500})
     else:
-        return jsonify({'status':500})
+        print('Not authenticated maamey')
+        return 500
 
+
+@methods.route('/answerforaquestion',methods=['POST'])
+def answerforaquestion():
+    formdata = request.form
+    what,where = formdata.values()
+    print(what,where)
